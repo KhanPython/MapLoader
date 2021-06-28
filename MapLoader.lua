@@ -29,9 +29,6 @@
 
         * Preferably pass Models for the :Load(...) method
 
-        * Avoid adding children on anything else besides models or folders as properties are likely to be out of
-          sync
-
         * Properties of Models or Folders such as "LevelOfDetail" will NOT be synced
 
     ------------------------------------------------------------------------------------------------------------
