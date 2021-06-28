@@ -91,7 +91,7 @@ function GetObjectSize(Object: Instance, Size: number?): number
 
     for Index = 1, #Object:GetChildren() do
         local ChildObject = Object:GetChildren()[Index]
-        if #ChildObject:GetChildren() > 0 then
+        if #ChildObject:GetChildren() > 0 and not ChildObject:IsA("BasePart") then
             if ChildObject:IsA("Model") and ChildObject.PrimaryPart then
                 Size += 1
             elseif (ChildObject:IsA("Model") and not ChildObject.PrimaryPart) or (not ChildObject:IsA("Model")) then
