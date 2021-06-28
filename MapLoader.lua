@@ -1,5 +1,3 @@
---  ObjectLoader
---  P.S This module has a few type errors and the doc is mostly pseudo-based.
 
 --[[
 
@@ -178,7 +176,7 @@ local ObjectLoader = {}
 
     function ObjectLoader:Load(ObjectToLoad: Instance): Instance
 
-        assert(ObjectToLoad ~= nil and typeof(ObjectToLoad) == "Instance", "Passed argument is nil!")
+        assert(ObjectToLoad ~= nil and typeof(ObjectToLoad) == "Instance", "Passed argument is either nil or of incorrect type!")
 
         --//ClassName checking; look at Rule #2
         if ObjectToLoad:IsA("Model") then
