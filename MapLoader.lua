@@ -148,7 +148,7 @@ function Load(CloneObject: Instance, Parent: any?, SearchDepth: number?, IsRecur
 
         for Index = 1, #CloneObject:GetChildren() do
             local Object = CloneObject:GetChildren()[Index]
-            if #Object:GetChildren() > 0 then
+            if #Object:GetChildren() > 0 and not Object:IsA("BasePart") then
                 if Object:IsA("Model") and Object.PrimaryPart then
                     SearchAmount += 1
                     Clone(Object, SearchAmount).Parent = Holder
