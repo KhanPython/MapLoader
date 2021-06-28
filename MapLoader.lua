@@ -7,7 +7,7 @@
 
     Methods:
 
-        MapLoader:Load(MapToLoad: Instance):Instance
+        MapLoader:Load(MapToLoad: Instance, Parent):Instance
 
             Replicates the contents of the "MapToLoad" and waits for "ResumeTime" seconds every "Interval"
             after which it returns the Loaded Instance.
@@ -41,8 +41,9 @@
         local MapLoader = require(directory to the module)
         local Map = game.ServerStorage["Forest"]
 
-        local NewMap = MapLoader:Load(Map)
-        NewMap.Parent = workspace
+        local NewMap = MapLoader:Load(Map, workspace)
+        wait(200)
+        NewMap:Destroy()
 
     ------------------------------------------------------------------------------------------------------------
 
@@ -174,24 +175,24 @@ end
 local MapLoader = {}
 
 
-    function MapLoader:Load(MapToLoad: Instance): Instance
+    function MapLoader:Load(MapToLoad: Instance, Parent): Instance
 
         assert(MapToLoad ~= nil and typeof(MapToLoad) == "Instance", "Passed argument is either nil or of incorrect type!")
 
         --//ClassName checking; look at Rule #2
         if MapToLoad:IsA("Model") then
             if not MapToLoad.PrimaryPart then
-                return Load(MapToLoad)
+                return Load(MapToLoad, Parent)
             else
                 --//Sync PrimaryParts; we are doing this only to the main holder for flexibility purposes; look at Rule #1
-                local LoadedMap = Load(MapToLoad)
+                local LoadedMap = Load(MapToLoad, Parent)
                 if not SyncPrimaryPartWith(MapToLoad, LoadedMap) then
                     warn("Unable to sync the PrimaryParts!" ..debug.traceback())
                 end
                 return LoadedMap
             end
         else
-            return Load(MapToLoad)
+            return Load(MapToLoad, Parent)
         end
 
     end
