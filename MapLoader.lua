@@ -49,33 +49,29 @@
 
 
 
-
---//Services
-local RunService = game:GetService("RunService")
-
 --//Constants
 local Interval: number = 50
 local ResumeTime: number = .1
 
 
 
---//Roblox's default wait is unreliable, hence we will be utilizing a custom wait
-function CustomWait(Seconds: number): number
-    Seconds = math.max(Seconds or 0.03, 0.029)
-    local TimeRemaining = Seconds
+--//EDIT: This is no longer necessary with Roblox's new task scheduler
+-- function CustomWait(Seconds: number): number
+--     Seconds = math.max(Seconds or 0.03, 0.029)
+--     local TimeRemaining = Seconds
 
-    while TimeRemaining > 0 do
-        TimeRemaining -= RunService.Heartbeat:Wait()
-    end
+--     while TimeRemaining > 0 do
+--         TimeRemaining -= RunService.Heartbeat:Wait()
+--     end
 
-    return Seconds - TimeRemaining
-end
+--     return Seconds - TimeRemaining
+-- end
 
 
 --//Clone function that will also wait if the interval is complimented
 function Clone(ObjectToClone: Instance, ObjectInterval: number): Instance
     if ObjectInterval%Interval == 0 then
-        CustomWait(ResumeTime)
+        task.wait(ResumeTime)
     end
 
     return ObjectToClone:Clone()
