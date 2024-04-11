@@ -1,2 +1,2 @@
 # MapLoader
-Dynamic way of loading huge objects on Roblox
+Incremental and a Dynamic way of loading huge objects on Roblox
