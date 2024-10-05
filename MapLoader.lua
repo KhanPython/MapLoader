@@ -4,18 +4,20 @@ local MAX_INCREMENT: number = 40
 local RESUME_TIME: number = 0.1
 
 -- Loads the map (Recursively) in incremental chunks
-function MapLoader.LoadMap(model: Instance): Instance
-	assert(model ~= nil and typeof(model) == "Instance", "Map undefined or of incorrect type")
+function MapLoader.LoadMap(map: Model | Folder): Model | Folder
+	-- Ensure the provided map is either a Model or Folder
+	assert(typeof(map) == "Instance" and (map:IsA("Model") or map:IsA("Folder")), "Expected a Model or Folder")
 
-	local parent = Instance.new(model.ClassName)
-	parent.Name = model.Name
+	local parent = Instance.new(map.ClassName)
+	parent.Name = map.Name
 
-	for _, obj in pairs(model:GetChildren()) do
+	for _, obj in pairs(map:GetChildren()) do
+		-- Recursively load objects with many descendants in chunks
 		if #obj:GetDescendants() > MAX_INCREMENT then
 			task.wait(RESUME_TIME)
 			MapLoader.LoadMap(obj).Parent = parent
 		else
-			print("loading object")
+			-- Clone and parent the object directly
 			local objClone = obj:Clone()
 			objClone.Parent = parent
 		end
