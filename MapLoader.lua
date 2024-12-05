@@ -1,12 +1,14 @@
+--!strict
+
 local MapLoader = {}
 
 local MAX_INCREMENT: number = 40
 local RESUME_TIME: number = 0.1
 
 -- Loads the map (Recursively) in incremental chunks
-function MapLoader.LoadMap(map: Model | Folder): Model | Folder
+function MapLoader.LoadMap(map: Instance): Instance
 	-- Ensure the provided map is either a Model or Folder
-	assert(typeof(map) == "Instance" and (map:IsA("Model") or map:IsA("Folder")), "Expected a Model or Folder")
+	assert(typeof(map) == "Instance" and (map:IsA("Model") or map:IsA("Folder")), "Expected a Model or a Folder")
 
 	local parent = Instance.new(map.ClassName)
 	parent.Name = map.Name
